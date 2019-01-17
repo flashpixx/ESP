@@ -1,6 +1,6 @@
 from config import Config
 
-
+# --- initialization function ----
 def wifi_connect(ssid:str, password:str, hostname:str=None):
     import network
 
@@ -26,7 +26,8 @@ def debug_off():
 
 
 
-print('--- boot ---')
+# --- initialization ---
+print('--- booting ---')
 c = Config()
 
 if not c.get("debug", False):

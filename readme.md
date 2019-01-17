@@ -7,16 +7,14 @@ Flash a file with the name ```config.json``` within the root directory and the f
 ```json
 {
   "debug": false,
-  "port": 3030,
-  "connection": 10,
-  "hostname": <Hostname>
+  "hostname": <hostname>,
   "ssid" : <Wifi SSID>,
-  "password" : <Wifi Password>
+  "password" : <Wifi Password>,
+  "threaded": true,
+  "port": 80
 }
 ```
 
-## Run
+## Micro-Webserver
 
-```
-telnet <ip> <port>
-```
+Using [Micro-Webserver](https://github.com/jczic/MicroWebSrv) for a REST-API
