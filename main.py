@@ -1,4 +1,5 @@
 import network
+import machine
 
 from config import Config
 from microWebSrv import MicroWebSrv
@@ -11,6 +12,11 @@ from microWebSrv import MicroWebSrv
 def route_hellow_world(client, response) :
     print('Hello World...')
     response.WriteResponseOk()
+
+
+@MicroWebSrv.route('/reset')
+def route_reset(client, response) :
+    machine.reset()
 
 
 
