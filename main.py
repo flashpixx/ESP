@@ -1,5 +1,8 @@
 import network
 
+from config import Config
+
+
 def sever(ip, port, allowed):
     import socket
 
@@ -33,4 +36,5 @@ def sever(ip, port, allowed):
 print('--- main ---')
 net = network.WLAN(network.STA_IF)
 if net.isconnected():
-    sever(net.ifconfig()[0], 3030, 10)
+    c = Config()
+    sever(net.ifconfig()[0], c.get('port', 3030), c.get('connection', 10))

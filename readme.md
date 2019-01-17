@@ -8,6 +8,7 @@ Flash a file with the name ```config.json``` within the root directory and the f
 {
   "debug": false,
   "port": 3030,
+  "connection": 10
   "ssid" : <Wifi SSID>,
   "password" : <Wifi Password>
 }

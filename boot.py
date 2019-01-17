@@ -1,5 +1,10 @@
 import network
 
+from config import Config
+
+
+
+
 def wifi_connect(ssid, password) -> network.WLAN:
     net = network.WLAN(network.STA_IF)
     net.active(True)
@@ -21,6 +26,7 @@ def load_config() -> dict:
         return ujson.load(stream)
 
 
+
 def debug_off():
     import esp
 
@@ -29,10 +35,10 @@ def debug_off():
 
 
 print('--- boot ---')
-c = load_config()
+c = Config()
 
-if not c.get('debug', False):
+if not c.get("debug", False):
     debug_off()
 
 if 'ssid' in c and 'password' in c:
-    wifi_connect( c.get('ssid'), c.get('password') )
+    wifi_connect( c.ssid, c.password )
