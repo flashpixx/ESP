@@ -1,4 +1,7 @@
 class Config(object):
+    '''
+    configuration option to cache all data of the configuration file
+    '''
 
     __instance = None
 
@@ -8,8 +11,11 @@ class Config(object):
         if Config.__instance is None:
             Config.__instance = object.__new__(cls)
 
-        with open(json, 'r') as stream:
-            Config.__instance._values = ujson.load(stream)
+        try:
+            with open(json, 'r') as stream:
+                Config.__instance._values = ujson.load(stream)
+        except:
+            print('configuration file not found', json)
 
         return Config.__instance
 

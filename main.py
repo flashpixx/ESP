@@ -1,15 +1,8 @@
 import network
 import machine
 
-from config import Config
-from microWebSrv import MicroWebSrv
-
-
-# --- led initialize ---
-
-LED = {
-    4 : machine.Pin(4, machine.Pin.OUT)
-}
+from component.config import Config
+from server.microWebSrv import MicroWebSrv
 
 
 
@@ -48,23 +41,20 @@ def route_info(client, response) :
 
 @MicroWebSrv.route('/led/<id>/on')
 def route_led_on(client, response, args):
-    id = int(args['id'])
-    if id in LED:
-        LED[id].value(1)
-        response.WriteResponseOk()
-    else:
-        response.WriteResponseBadRequest()
+    #if id in LED:
+    response.WriteResponseOk()
+    #else:
+    #    response.WriteResponseBadRequest()
 
 
 @MicroWebSrv.route('/led/<id>/off')
 def route_led_off(client, response, args):
-    id = int(args['id'])
-    if id in LED:
-        LED[id].value(0)
-        response.WriteResponseOk()
-    else:
-        response.WriteResponseBadRequest()
-
+    #id = int(args['id'])
+    #if id in LED:
+    #    LED[id].value(0)
+    response.WriteResponseOk()
+    #else:
+    #    response.WriteResponseBadRequest()
 
 
 

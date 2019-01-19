@@ -1,4 +1,5 @@
-from config import Config
+from component.config import Config
+
 
 # --- initialization function ----
 def wifi_connect(ssid:str, password:str, hostname:str=None):
@@ -35,4 +36,3 @@ if not c.get("debug", False):
 
 if 'ssid' in c and 'password' in c:
     wifi_connect( c.ssid, c.password, c.hostname )
-

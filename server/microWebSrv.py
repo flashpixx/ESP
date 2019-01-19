@@ -8,16 +8,15 @@ from    json        import loads, dumps
 from    os          import stat
 from    _thread     import start_new_thread
 import  socket
-import  gc
 import  re
 
 try :
-    from microWebTemplate import MicroWebTemplate
+    from server.microWebTemplate import MicroWebTemplate
 except :
     pass
 
 try :
-    from microWebSocket import MicroWebSocket
+    from server.microWebSocket import MicroWebSocket
 except :
     pass
 
