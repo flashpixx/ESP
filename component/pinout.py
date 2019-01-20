@@ -1,4 +1,4 @@
-class PinOut:
+class PinOut(object):
     '''
     pin-out structure
     '''
