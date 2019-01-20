@@ -24,6 +24,30 @@ class PinOut:
     def __contains__(self, item):
         return item in self.__instance._pins
 
+    def pins(self):
+        '''
+        returns all key as tuple
+
+        :return: tuple of keys
+        '''
+        return tuple(self.__instance._pins.keys())
+
+    def allup(self):
+        '''
+        set all pins to high level
+        '''
+
+        for i in self.__instance._pins.values():
+            i.value(1)
+
+    def alldown(self):
+        '''
+        sets all pins to low level
+        '''
+
+        for i in self.__instance._pins.values():
+            i.value(0)
+
     def up(self, item):
         '''
         set pin to high level

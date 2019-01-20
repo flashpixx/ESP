@@ -45,13 +45,31 @@ def route_info(client, response) :
 
 
 @MicroWebSrv.route('/toggle/<id>')
-def route_led_on(client, response, args):
+def route_toggle(client, response, args):
     p = PinOut()
     if args['id'] in p:
         p.toggle(args['id'])
         response.WriteResponseOk()
     else:
         response.WriteResponseBadRequest()
+
+
+@MicroWebSrv.route('/random')
+def route_random(client, response):
+    import time
+    import random
+
+    p = PinOut()
+    p.alldown()
+
+    for i in range(3):
+        for j in p.pindis().keys():
+            p.up(j)
+            time.sleep(0.25)
+            p.down(j)
+
+    p.up(random.choice(p.pins()))
+    response.WriteResponseOk()
 
 
 
