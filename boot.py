@@ -39,4 +39,4 @@ if 'ssid' in c and 'password' in c:
     wifi_connect( c.ssid, c.password, c.hostname )
 
 
-PinOut({'white': 4})
+PinOut({'white': 2, 'blue': 4, 'yellow': 16})

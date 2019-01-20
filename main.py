@@ -44,7 +44,7 @@ def route_info(client, response) :
     )
 
 
-@MicroWebSrv.route('/out/<id>/toggle')
+@MicroWebSrv.route('/toggle/<id>')
 def route_led_on(client, response, args):
     p = PinOut()
     if args['id'] in p:
