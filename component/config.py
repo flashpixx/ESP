@@ -15,7 +15,7 @@ class Config(object):
             with open(json, 'r') as stream:
                 Config.__instance._values = ujson.load(stream)
         except:
-            print('configuration file not found', json)
+            print('CONFIGURATION FILE NOT FOUND', json, '\n')
 
         return Config.__instance
 

@@ -1,4 +1,5 @@
 from component.config import Config
+from component.pinout import PinOut
 
 
 # --- initialization function ----
@@ -28,7 +29,7 @@ def debug_off():
 
 
 # --- initialization ---
-print('--- booting ---')
+print('--- booting & initialization ---')
 c = Config()
 
 if not c.get("debug", False):
@@ -36,3 +37,6 @@ if not c.get("debug", False):
 
 if 'ssid' in c and 'password' in c:
     wifi_connect( c.ssid, c.password, c.hostname )
+
+
+PinOut({'white': 4})

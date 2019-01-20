@@ -2,6 +2,7 @@ import network
 import machine
 
 from component.config import Config
+from component.pinout import PinOut
 from server.microWebSrv import MicroWebSrv
 
 
@@ -34,27 +35,23 @@ def route_info(client, response) :
                 'netmask': net.ifconfig()[1],
                 'router': net.ifconfig()[2],
                 'dns': net.ifconfig()[3]
+            },
+            'pinout': PinOut().pindis(),
+            'current_state': {
+                'pinout': {i:PinOut().isup(i) for i in PinOut().pindis().keys()}
             }
         }
     )
 
 
-@MicroWebSrv.route('/led/<id>/on')
+@MicroWebSrv.route('/out/<id>/toggle')
 def route_led_on(client, response, args):
-    #if id in LED:
-    response.WriteResponseOk()
-    #else:
-    #    response.WriteResponseBadRequest()
-
-
-@MicroWebSrv.route('/led/<id>/off')
-def route_led_off(client, response, args):
-    #id = int(args['id'])
-    #if id in LED:
-    #    LED[id].value(0)
-    response.WriteResponseOk()
-    #else:
-    #    response.WriteResponseBadRequest()
+    p = PinOut()
+    if args['id'] in p:
+        p.toggle(args['id'])
+        response.WriteResponseOk()
+    else:
+        response.WriteResponseBadRequest()
 
 
 
