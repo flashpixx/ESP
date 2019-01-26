@@ -13,4 +13,4 @@ if not c.get("debug", False):
 if 'ssid' in c and 'password' in c:
     SystemGlobal.wifi_connect( c.ssid, c.password, c.hostname )
 
-PinOut({'white': 2, 'blue': 4, 'yellow': 16})
+PinOut({'white': 2, 'blue': 4, 'yellow': 0})

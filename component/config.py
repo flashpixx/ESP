@@ -1,4 +1,4 @@
-class Config(object):
+class Config:
     '''
     configuration option to cache all data of the configuration file
     '''

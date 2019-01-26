@@ -1,4 +1,4 @@
-class SystemGlobal(object):
+class SystemGlobal:
     '''
     global system access methods
     '''
