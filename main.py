@@ -1,21 +1,20 @@
-import network
 import machine
+import network
 
 from component.config import Config
 from component.pinout import PinOut
 from server.microWebSrv import MicroWebSrv
 
 
-
 # --- server routes ---
 
 @MicroWebSrv.route('/reset')
-def route_reset(client, response) :
+def route_reset(client, response):
     machine.reset()
 
 
 @MicroWebSrv.route('/info')
-def route_info(client, response) :
+def route_info(client, response):
     import ubinascii
     import gc
 
@@ -38,7 +37,7 @@ def route_info(client, response) :
             },
             'pinout': PinOut().pindis(),
             'current_state': {
-                'pinout': {i:PinOut().isup(i) for i in PinOut().pindis().keys()}
+                'pinout': {i: PinOut().isup(i) for i in PinOut().pindis().keys()}
             }
         }
     )
@@ -70,7 +69,6 @@ def route_random(client, response):
 
     p.up(random.choice(p.pins()))
     response.WriteResponseOk()
-
 
 
 # --- main program ---

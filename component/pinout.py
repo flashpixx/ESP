@@ -5,7 +5,7 @@ class PinOut:
 
     __instance = None
 
-    def __new__(cls, pins:dict=None):
+    def __new__(cls, pins: dict = None):
         from machine import Pin
 
         if PinOut.__instance is None:

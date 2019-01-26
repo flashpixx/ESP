@@ -5,7 +5,7 @@ class Config:
 
     __instance = None
 
-    def __new__(cls, json:str='config.json'):
+    def __new__(cls, json: str = 'config.json'):
         import ujson
 
         if Config.__instance is None:
@@ -18,7 +18,6 @@ class Config:
             print('CONFIGURATION FILE NOT FOUND', json, '\n')
 
         return Config.__instance
-
 
     def __str__(self):
         return str(self.__instance._values)

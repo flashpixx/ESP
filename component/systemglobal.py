@@ -28,7 +28,6 @@ class SystemGlobal:
 
         print('Wifi Config: IP %s - Netmask %s - Router %s - DNS %s' % net.ifconfig())
 
-
     @staticmethod
     def debugoff():
         '''
