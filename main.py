@@ -21,7 +21,7 @@ def matrix_brightness(client, response, args):
     response.WriteResponseOk()
 
 @MicroWebSrv.route('/matrix/reset')
-def matrix_brightness(client, response):
+def matrix_reset(client, response):
     x.reset()
     response.WriteResponseOk()
 
