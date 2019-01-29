@@ -14,7 +14,9 @@ class PinOut:
             PinOut.__instance._pinids = pins
             PinOut.__instance._pins = {}
             for name, pin in pins.items():
-                PinOut.__instance._pins[name] = Pin(pin, Pin.OUT)
+                p = Pin(pin, Pin.OUT)
+                p.value(0)
+                PinOut.__instance._pins[name] = p
 
         return PinOut.__instance
 

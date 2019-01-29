@@ -2,8 +2,29 @@ import machine
 import network
 
 from component.config import Config
+from component.max7219matrix import Max7219Matrix
 from component.pinout import PinOut
 from server.microWebSrv import MicroWebSrv
+
+
+x = Max7219Matrix(8, 8, clk=14, din=13, cs=12)
+
+@MicroWebSrv.route('/matrix/pixel/<x>/<y>')
+def matrix_pixel(client, response, args):
+    x.pixel(int(args['x']),int(args['y']))
+    x()
+    response.WriteResponseOk()
+
+@MicroWebSrv.route('/matrix/char/<c>')
+def matrix_char(client, response, args):
+    x.text(args['c'], 0, 0)
+    x()
+    response.WriteResponseOk()
+
+@MicroWebSrv.route('/matrix/brightness/<v>')
+def matrix_brightness(client, response, args):
+    x.brightness(int(args['v']))
+    response.WriteResponseOk()
 
 
 # --- server routes ---
