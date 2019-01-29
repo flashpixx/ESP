@@ -87,7 +87,7 @@ class Max7219Matrix(framebuf.FrameBuffer):
             raise ValueError('Brightness must be between 0 and 15')
         self._push(_INTENSITY, value)
 
-    def __call__self):
+    def __call__(self):
         '''
         update
         '''
