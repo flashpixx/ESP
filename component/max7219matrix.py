@@ -30,7 +30,18 @@ class Max7219Matrix(framebuf.FrameBuffer):
 
     _MATRIX_SIZE = const(8)
 
-    def __init__(self, width: int, height: int, din: int, cs: int, clk: int, rotate_180=False, spiid: int = 1, baudrate: int = 10000000):
+    def __init__(self,
+                 width: int,
+                 height: int,
+                 cs: int,
+                 din: int = None,
+                 clk: int = None,
+                 rotate_180=False,
+                 spiid: int = 1,
+                 baudrate: int = 10000000,
+                 polarity: int=0,
+                 phase: int=0):
+
         self._width = width
         self._height = height
 
@@ -38,7 +49,7 @@ class Max7219Matrix(framebuf.FrameBuffer):
         self._rows = height // _MATRIX_SIZE
         self._nb_matrices = self._cols * self._rows
 
-        self._spi = SPI(spiid, baudrate)
+        self._spi = SPI(spiid, mosi=None if din is None else Pin(din), sck=None if clk is None else Pin(clk), baudrate=baudrate, polarity=polarity, phase=phase)
         self._cs = Pin(cs, Pin.OUT)
         self._rotate_180 = rotate_180
 
@@ -64,6 +75,8 @@ class Max7219Matrix(framebuf.FrameBuffer):
         ):
             self._push(command, data)
 
+        self.reset()
+
     def _push(self, command, data):
         '''
         push command to the display
@@ -86,6 +99,14 @@ class Max7219Matrix(framebuf.FrameBuffer):
         if not 0 <= value < 16:
             raise ValueError('Brightness must be between 0 and 15')
         self._push(_INTENSITY, value)
+
+    def reset(self):
+        '''
+        resets the matrix
+        :return:
+        '''
+        self.fill(0)
+        self()
 
     def __call__(self):
         '''

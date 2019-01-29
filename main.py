@@ -9,12 +9,6 @@ from server.microWebSrv import MicroWebSrv
 
 x = Max7219Matrix(8, 8, clk=14, din=13, cs=12)
 
-@MicroWebSrv.route('/matrix/pixel/<x>/<y>')
-def matrix_pixel(client, response, args):
-    x.pixel(int(args['x']),int(args['y']))
-    x()
-    response.WriteResponseOk()
-
 @MicroWebSrv.route('/matrix/char/<c>')
 def matrix_char(client, response, args):
     x.text(args['c'], 0, 0)
@@ -24,6 +18,11 @@ def matrix_char(client, response, args):
 @MicroWebSrv.route('/matrix/brightness/<v>')
 def matrix_brightness(client, response, args):
     x.brightness(int(args['v']))
+    response.WriteResponseOk()
+
+@MicroWebSrv.route('/matrix/reset')
+def matrix_brightness(client, response):
+    x.reset()
     response.WriteResponseOk()
 
 
