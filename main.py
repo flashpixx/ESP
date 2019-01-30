@@ -11,7 +11,7 @@ x = Max7219Matrix(8, 8, clk=14, din=13, cs=12)
 
 @MicroWebSrv.route('/matrix/char/<c>')
 def matrix_char(client, response, args):
-    x.text(args['c'], 0, 0)
+    x.text(str(args['c']), 0, 0)
     x()
     response.WriteResponseOk()
 
