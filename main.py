@@ -23,6 +23,7 @@ def matrix_text(client, response):
         x.text(i, 0, 0)
         x()
         time.sleep_ms(750)
+    x.reset()
     response.WriteResponseOk()
 
 @MicroWebSrv.route('/matrix/brightness/<v>')

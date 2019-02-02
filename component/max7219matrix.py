@@ -76,6 +76,7 @@ class Max7219Matrix(framebuf.FrameBuffer):
             self._push(command, data)
 
         self.reset()
+        self.brightness(0)
 
     def _push(self, command, data):
         '''
