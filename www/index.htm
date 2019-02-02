@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>ESP</title>
+
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container-fluid mt-3">
+
+       <h4>LED</h4>
+       <div class="row">
+           <div class="mr-2"><a href="#" id="led_random">Random</a></div>
+           <div class="mr-2">
+                <label class="checkbox-inline"><input type="checkbox" value="white" class="led_toggle">White</label>
+                <label class="checkbox-inline"><input type="checkbox" value="blue" class="led_toggle">Blue</label>
+                <label class="checkbox-inline"><input type="checkbox" value="yellow" class="led_toggle">Yellow</label>
+          </div>
+       </div>
+
+
+       <h4 class="mt-3">Dot-Matrix</h4>
+       <div class="row">
+            <textarea class="form-control" rows="3" id="matrixtext"></textarea>
+            <a href="#" id="matrixsend">Send</a> &mdash; <a href="#" id="matrixreset">Reset</a>
+       </div>
+
+    </div>
+
+
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script>
+        function sleep(milliseconds) {
+            return new Promise(resolve => setTimeout(resolve, milliseconds));
+        }
+
+        jQuery(function() {
+            jQuery("#led_random").click(function() {
+                jQuery.ajax({url: "/random"});
+            });
+        });
+
+        jQuery(".led_toggle").click(function() {
+            jQuery.ajax({url: "/toggle/" + jQuery(this).val() });
+        });
+
+        jQuery("#matrixsend").click(function() {
+            jQuery.ajax({url: "/matrix/text/" + jQuery("#matrixtext").val()});
+        });
+
+        jQuery("#matrixreset").click(function() {
+            jQuery.ajax({url: "/matrix/reset"});
+        });
+    </script>
+</body>
+</html>

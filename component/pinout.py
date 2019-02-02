@@ -1,3 +1,9 @@
+'''
+module of pin access
+'''
+
+from machine import Pin
+
 class PinOut:
     '''
     pin-out structure
@@ -6,8 +12,6 @@ class PinOut:
     __instance = None
 
     def __new__(cls, pins: dict = None):
-        from machine import Pin
-
         if PinOut.__instance is None:
             PinOut.__instance = object.__new__(cls)
 

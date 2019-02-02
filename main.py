@@ -1,3 +1,4 @@
+import time
 import machine
 import network
 
@@ -15,10 +16,20 @@ def matrix_char(client, response, args):
     x()
     response.WriteResponseOk()
 
+@MicroWebSrv.route('/matrix/text/<t>')
+def matrix_text(client, response, args):
+    for i in str(args['t']):
+        x.reset()
+        x.text(i, 0, 0)
+        x()
+        time.sleep_ms(750)
+    response.WriteResponseOk()
+
 @MicroWebSrv.route('/matrix/brightness/<v>')
 def matrix_brightness(client, response, args):
     x.brightness(int(args['v']))
     response.WriteResponseOk()
+
 
 @MicroWebSrv.route('/matrix/reset')
 def matrix_reset(client, response):
