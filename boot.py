@@ -16,13 +16,8 @@ if 'ssid' in c and 'password' in c:
         wifi_accesspoint(
             ssid=c.ssid,
             password=c.password,
-            ip=c.get('ip', '192.168.100.1'),
-            netmask=c.get('netmask', '255.255.255.0'),
-            gateway=c.get('gateway', '0.0.0.0'),
-            dns=c.get('dns', '0.0.0.0'),
             channel=c.get('channel', None),
-            hidden=c.get('hidden', False),
-            hostname=c.hostname
+            hidden=c.get('hidden', False)
         )
     else:
         wifi_connect(

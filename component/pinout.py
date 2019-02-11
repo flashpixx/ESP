@@ -1,7 +1,6 @@
 '''
 module of pin access
 '''
-
 from machine import Pin
 
 class PinOut:
@@ -9,26 +8,44 @@ class PinOut:
     pin-out structure
     '''
 
-    __instance = None
+    _instance = None
 
-    def __new__(cls, pins: dict = None):
-        if PinOut.__instance is None:
-            PinOut.__instance = object.__new__(cls)
+    def __new__(cls, *args, **kwargs):
+        '''
+        class instance
 
-            PinOut.__instance._pinids = pins
-            PinOut.__instance._pins = {}
-            for name, pin in pins.items():
-                p = Pin(pin, Pin.OUT)
-                p.value(0)
-                PinOut.__instance._pins[name] = p
+        :param args: ctor arguments
+        :param kwargs: ctor arguments
+        :return: instance
+        '''
+        if not cls._instance:
+            cls._instance = super(PinOut, cls).__new__(cls)
 
-        return PinOut.__instance
+        return cls._instance
+
+
+    def __init__(self, pins: dict = None):
+        '''
+        ctor
+
+        :param pins: dict with bin names and pin ids
+        '''
+        if pins is None:
+            return
+
+        self._pins = {}
+        self._pinids = pins
+        for name, pin in pins.items():
+            pin = Pin(pin, Pin.OUT)
+            pin.value(0)
+            self._pins[name] = pin
+
 
     def __str__(self):
-        return str(self.__instance)
+        return str(self._pins)
 
     def __contains__(self, item):
-        return item in self.__instance._pins
+        return item in self._pins
 
     def pins(self):
         '''
@@ -36,14 +53,14 @@ class PinOut:
 
         :return: tuple of keys
         '''
-        return tuple(self.__instance._pins.keys())
+        return tuple(self._pins.keys())
 
     def allup(self):
         '''
         set all pins to high level
         '''
 
-        for i in self.__instance._pins.values():
+        for i in self._pins.values():
             i.value(1)
 
     def alldown(self):
@@ -51,7 +68,7 @@ class PinOut:
         sets all pins to low level
         '''
 
-        for i in self.__instance._pins.values():
+        for i in self._pins.values():
             i.value(0)
 
     def up(self, item):
@@ -61,7 +78,7 @@ class PinOut:
         :param item: item
         '''
 
-        self.__instance._pins.get(item).value(1)
+        self._pins.get(item).value(1)
 
     def down(self, item):
         '''
@@ -69,7 +86,7 @@ class PinOut:
 
         :param item: item
         '''
-        self.__instance._pins.get(item).value(0)
+        self._pins.get(item).value(0)
 
     def isup(self, item):
         '''
@@ -78,7 +95,7 @@ class PinOut:
         :param item: item
         :return: up level
         '''
-        return self.__instance._pins.get(item).value() == 1
+        return self._pins.get(item).value() == 1
 
     def isdown(self, item):
         '''
@@ -87,7 +104,7 @@ class PinOut:
         :param item: item
         :return: down level
         '''
-        return self.__instance._pins.get(item).value() == 0
+        return self._pins.get(item).value() == 0
 
     def toggle(self, item):
         '''
@@ -95,7 +112,7 @@ class PinOut:
 
         :param item: item
         '''
-        i = self.__instance._pins.get(item)
+        i = self._pins.get(item)
         i.value(int(not i.value()))
 
     def pindis(self):
@@ -104,4 +121,4 @@ class PinOut:
 
         :return: dict
         '''
-        return self.__instance._pinids
+        return self._pinids

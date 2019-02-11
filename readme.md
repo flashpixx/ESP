@@ -7,11 +7,13 @@ Flash a file with the name ```config.json``` within the root directory and the f
 ```json
 {
   "debug": false,
+  "accesspoint": false,
   "hostname": <hostname>,
   "ssid" : <Wifi SSID>,
   "password" : <Wifi Password>,
   "threaded": true,
-  "port": 80
+  "port": 80,
+  "www": "/www"
 }
 ```
 

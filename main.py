@@ -104,8 +104,13 @@ def route_random(client, response):
 # --- main program ---
 
 print('--- start webserver ---')
-net = network.WLAN(network.STA_IF)
-if net.isconnected():
-    c = Config()
+c = Config()
+if c.get('accesspoint', True):
+    net = network.WLAN(network.AP_IF)
     w = MicroWebSrv(bindIP=net.ifconfig()[0], port=c.get('port', 80), webPath=c.get('www', '/www'))
     w.Start(threaded=c.get('threaded', True))
+else:
+    net = network.WLAN(network.STA_IF)
+    if net.isconnected():
+        w = MicroWebSrv(bindIP=net.ifconfig()[0], port=c.get('port', 80), webPath=c.get('www', '/www'))
+        w.Start(threaded=c.get('threaded', True))

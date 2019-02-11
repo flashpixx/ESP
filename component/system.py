@@ -7,40 +7,25 @@ import esp
 import machine
 
 
-def wifi_accesspoint(
-        ssid: str,
-        password: str,
-        ip: str,
-        netmask: str,
-        gateway: str,
-        dns: str,
-        channel: int = None,
-        hidden: bool = False,
-        hostname: str = None):
+def wifi_accesspoint(ssid: str, password: str, channel: int = None, hidden: bool = False):
     '''
     creates an accesspoint, default authentification methode is WPA2-PSK
 
     :param ssid: network ssid
     :param password: network password
-    :param ip: ip address
-    :param netmask: network mask
     :param channel optional wifi channel
     :param hidden: optional hidden wifi flag
-    :param hostname: optional hostname
     '''
 
+    network.WLAN(network.STA_IF).active(False)
+
     net = network.WLAN(network.AP_IF)
-    net.active(True)
-
-    net.ifconfig((ip, netmask, gateway, dns))
-    net.config(essid=ssid, password=password, hidden=0 if hidden else 1)
-    net.config(authmode=3)
-
-
-    if not hostname is None:
-        net.config(dhcp_hostname=hostname)
+    net.config(essid=ssid, password=password, hidden=1 if hidden else 0)
     if not channel is None:
         net.config(channel=channel)
+
+    net.active(True)
+    print('Wifi Config: IP %s - Netmask %s - Router %s - DNS %s' % net.ifconfig())
 
 
 def wifi_connect(ssid: str, password: str, hostname: str = None):
@@ -52,6 +37,7 @@ def wifi_connect(ssid: str, password: str, hostname: str = None):
     :param hostname: optional hostname
     '''
 
+    network.WLAN(network.AP_IF).active(False)
 
     net = network.WLAN(network.STA_IF)
     net.ifconfig(('dhcp'))

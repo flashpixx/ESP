@@ -1,21 +1,29 @@
+from typing import Any
+
 import framebuf
 from machine import SPI, Pin
 from micropython import const
 
 class DotMatrix:
-    __instance = None
 
-    def __new__(cls, pins: dict = None):
+    _instance = None
 
-        if DotMatrix.__instance is None:
-            DotMatrix.__instance = object.__new__(cls)
+    def __new__(cls, *args, **kwargs):
+        '''
+        class instance
 
-            DotMatrix.__instance._pinids = pins
-            DotMatrix.__instance._pins = {}
+        :param args: ctor arguments
+        :param kwargs: ctor arguments
+        :return: instance
+        '''
+        if not cls._instance:
+            cls._instance = super(DotMatrix, cls).__new__(cls)
+
+        return cls._instance
 
 
-
-        return DotMatrix.__instance
+        def __init__(self):
+            self._matrix = {}
 
 
 
