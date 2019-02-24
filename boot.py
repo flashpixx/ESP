@@ -1,4 +1,5 @@
 from component.config import Config
+from component.dotmatrix import DotMatrix
 from component.pinout import PinOut
 
 # --- initialization ---
@@ -27,3 +28,4 @@ if 'ssid' in c and 'password' in c:
         )
 
 PinOut({'white': 2, 'blue': 4, 'yellow': 0})
+DotMatrix().bind('matrix', 8, 8, clk=14, din=13, cs=12)

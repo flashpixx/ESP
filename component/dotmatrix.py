@@ -40,32 +40,45 @@ class DotMatrix:
     def unbind(self, name: str):
         del self._matrix[name]
 
-    def fill(self, name: str, c: int):
-        self._matrix[name].fill(c)
+    def fill(self, c: int=0, name: str = None):
+        self._caller(lambda m: m.fill(c), name)
 
-    def pixel(self, name: str, x: int, y: int, c: int):
-        self._matrix[name].pixel(x, y, c)
+    def pixel(self, x: int, y: int, c: int, name: str = None):
+        self._caller(lambda m: m.pixel(x, y, c), name)
 
-    def hline(self, name: str, x: int, y: int, w: int, c: int):
-        self._matrix[name].hline(x, y, w, c)
+    def hline(self, x: int, y: int, w: int, c: int, name: str = None):
+        self._caller(lambda m: m.hline(x, y, w, c), name)
 
-    def vline(self, name: str, x: int, y: int, h: int, c: int):
-        self._matrix[name].vline(x, y, h, c)
+    def vline(self, x: int, y: int, h: int, c: int, name: str = None):
+        self._caller(lambda m: m.vline(x, y, h, c), name)
 
-    def line(self, name: str, x1: int, y1: int, x2: int, y2: int, c: int):
-        self._matrix[name].line(x1, y1, x2, y2, c)
+    def line(self, x1: int, y1: int, x2: int, y2: int, c: int, name: str = None):
+        self._caller(lambda m: m.line(x1, y1, x2, y2, c), name)
 
-    def rect(self, name: str, x: int, y: int, w: int, h: int, c: int):
-        pass
+    def rect(self, x: int, y: int, w: int, h: int, c: int, name: str = None):
+        self._caller(lambda m: m.rect(x, y, w, h, c), name)
 
-    def fill_rect(self, name: str, x: int, y: int, w: int, h: int, c: int):
-        self._matrix[name].fill(x, y, w, h, c)
+    def fill_rect(self, x: int, y: int, w: int, h: int, c: int, name: str = None):
+        self._caller(lambda m: m.fill_rect(x, y, w, h, c), name)
 
-    def text(self, name: str, s: str, x: int, y: int, c: int = 1, encoding: str = 'latin1'):
-        self._matrix[name].text(s.encode(encoding), x, y, c)
+    def text(self, s: str, x: int, y: int, c: int = 1, name: str = None, encoding: str = 'latin1'):
+        self._caller(lambda m: m.text(s.encode(encoding), x, y, c), name)
 
-    def __call__(self, name: str):
-        self._matrix[name]()
+    def brightness(self, value:int, name: str = None):
+        self._caller(lambda i: i.brightness(value), name)
+
+    def reset(self, name:str = None):
+        self._caller(lambda m: m.reset(), name)
+
+    def update(self, name: str = None):
+        self._caller(lambda m: m(), name)
+
+    def _caller(self, call, name:str = None):
+        if name is None:
+            for i in self._matrix.values():
+                call(i)
+        else:
+            call(self._matrix[name])
 
     def __iter__(self):
         return self._matrix.keys().__iter__()

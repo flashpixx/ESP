@@ -4,40 +4,31 @@ import machine
 import network
 
 from component.config import Config
+from component.dotmatrix import DotMatrix
 from component.max7219matrix import Max7219Matrix
 from component.pinout import PinOut
 from server.microWebSrv import MicroWebSrv
 
-x = Max7219Matrix(8, 8, clk=14, din=13, cs=12)
-
-
-@MicroWebSrv.route('/matrix/char/<c>')
-def matrix_char(client, response, args):
-    x.text(str(args['c']), 0, 0)
-    x()
-    response.WriteResponseOk()
-
-
 @MicroWebSrv.route('/matrix/text', 'POST')
 def matrix_text(client, response):
+    matrix = DotMatrix()
     for i in str(client.ReadRequestContentAsJSON()['text']):
-        x.reset()
-        x.text(i, 0, 0)
-        x()
+        matrix.text(i, 0, 0)
+        matrix.update()
         time.sleep_ms(750)
-    x.reset()
+    matrix.reset()
     response.WriteResponseOk()
 
 
 @MicroWebSrv.route('/matrix/brightness/<v>')
 def matrix_brightness(client, response, args):
-    x.brightness(int(args['v']))
+    DotMatrix().brightness(int(args['v']))
     response.WriteResponseOk()
 
 
 @MicroWebSrv.route('/matrix/reset')
 def matrix_reset(client, response):
-    x.reset()
+    DotMatrix().reset()
     response.WriteResponseOk()
 
 
