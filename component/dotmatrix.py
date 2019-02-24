@@ -22,12 +22,49 @@ class DotMatrix:
         return cls._instance
 
 
-        def __init__(self):
-            self._matrix = {}
+    def __init__(self):
+        self._matrix = dict()
+
+    def create(self,
+            name: str,
+            width: int,
+            height: int,
+            cs: int,
+            din: int = None,
+            clk: int = None,
+            rotate_180=False,
+            spiid: int = 1,
+            baudrate: int = 10000000,
+            polarity: int = 0,
+            phase: int = 0):
+        self._matrix[name.replace(' ', '')] = self._Max7219(width, height, cs, din, clk, rotate_180, spiid, baudrate, polarity, phase)
+
+    def fill(self, name: str, c: int):
+        pass
+
+    def pixel(self, name: str, x: int, y: int, c: int):
+        pass
+
+    def hline(self, name: str, x: int, y: int, w: int, c: int):
+        pass
+
+    def vline(self, name: str, x: int, y: int, h: int, c: int):
+        pass
+
+    def line(self, name: str, x1: int, y1: int, x2: int, y2: int, c: int):
+        pass
+
+    def rect(self, name: str, x: int, y: int, w: int, h: int, c: int):
+        pass
+
+    def fill_rect(self, name: str, x: int, y: int, w: int, h: int, c: int):
+        pass
+
+    def text(self, name: str, s: str, x: int, y: int, c: int = 1):
+        pass
 
 
-
-    class Max7219(framebuf.FrameBuffer):
+    class _Max7219(framebuf.FrameBuffer):
         # https://howtomechatronics.com/tutorials/arduino/8x8-led-matrix-max7219-tutorial-scrolling-text-android-control-via-bluetooth/
         # https://www.bastelgarage.ch/index.php?route=extension/d_blog_module/post&post_id=6
         # https://github.com/mcauser/micropython-max7219
