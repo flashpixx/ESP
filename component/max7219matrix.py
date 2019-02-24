@@ -39,8 +39,8 @@ class Max7219Matrix(framebuf.FrameBuffer):
                  rotate_180=False,
                  spiid: int = 1,
                  baudrate: int = 10000000,
-                 polarity: int=0,
-                 phase: int=0):
+                 polarity: int = 0,
+                 phase: int = 0):
 
         self._width = width
         self._height = height
@@ -49,7 +49,8 @@ class Max7219Matrix(framebuf.FrameBuffer):
         self._rows = height // _MATRIX_SIZE
         self._nb_matrices = self._cols * self._rows
 
-        self._spi = SPI(spiid, mosi=None if din is None else Pin(din), sck=None if clk is None else Pin(clk), baudrate=baudrate, polarity=polarity, phase=phase)
+        self._spi = SPI(spiid, mosi=None if din is None else Pin(din), sck=None if clk is None else Pin(clk), baudrate=baudrate, polarity=polarity,
+                        phase=phase)
         self._cs = Pin(cs, Pin.OUT)
         self._rotate_180 = rotate_180
 

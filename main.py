@@ -1,4 +1,5 @@
 import time
+
 import machine
 import network
 
@@ -7,14 +8,15 @@ from component.max7219matrix import Max7219Matrix
 from component.pinout import PinOut
 from server.microWebSrv import MicroWebSrv
 
-
 x = Max7219Matrix(8, 8, clk=14, din=13, cs=12)
+
 
 @MicroWebSrv.route('/matrix/char/<c>')
 def matrix_char(client, response, args):
     x.text(str(args['c']), 0, 0)
     x()
     response.WriteResponseOk()
+
 
 @MicroWebSrv.route('/matrix/text', 'POST')
 def matrix_text(client, response):
@@ -25,6 +27,7 @@ def matrix_text(client, response):
         time.sleep_ms(750)
     x.reset()
     response.WriteResponseOk()
+
 
 @MicroWebSrv.route('/matrix/brightness/<v>')
 def matrix_brightness(client, response, args):

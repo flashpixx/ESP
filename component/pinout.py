@@ -3,6 +3,7 @@ module of pin access
 '''
 from machine import Pin
 
+
 class PinOut:
     '''
     pin-out structure
@@ -23,7 +24,6 @@ class PinOut:
 
         return cls._instance
 
-
     def __init__(self, pins: dict = None):
         '''
         ctor
@@ -39,7 +39,6 @@ class PinOut:
             pin = Pin(pin, Pin.OUT)
             pin.value(0)
             self._pins[name] = pin
-
 
     def __str__(self):
         return str(self._pins)

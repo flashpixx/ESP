@@ -1,11 +1,9 @@
-from typing import Any
-
 import framebuf
 from machine import SPI, Pin
 from micropython import const
 
-class DotMatrix:
 
+class DotMatrix:
     _instance = None
 
     def __new__(cls, *args, **kwargs):
@@ -21,23 +19,26 @@ class DotMatrix:
 
         return cls._instance
 
-
     def __init__(self):
-        self._matrix = dict()
+        self._matrix = {}
+        self._spi = 1
 
-    def create(self,
-            name: str,
-            width: int,
-            height: int,
-            cs: int,
-            din: int = None,
-            clk: int = None,
-            rotate_180=False,
-            spiid: int = 1,
-            baudrate: int = 10000000,
-            polarity: int = 0,
-            phase: int = 0):
-        self._matrix[name.replace(' ', '')] = self._Max7219(width, height, cs, din, clk, rotate_180, spiid, baudrate, polarity, phase)
+    def bind(self,
+             name: str,
+             width: int,
+             height: int,
+             cs: int,
+             din: int = None,
+             clk: int = None,
+             rotate_180=False,
+             baudrate: int = 10000000,
+             polarity: int = 0,
+             phase: int = 0):
+        self._matrix[name] = self._Max7219(width, height, cs, din, clk, rotate_180, self._spi, baudrate, polarity, phase)
+        self._spi += 1
+
+    def unbind(self, name: str):
+        del self._matrix[name]
 
     def fill(self, name: str, c: int):
         self._matrix[name].fill(c)
@@ -60,9 +61,14 @@ class DotMatrix:
     def fill_rect(self, name: str, x: int, y: int, w: int, h: int, c: int):
         self._matrix[name].fill(x, y, w, h, c)
 
-    def text(self, name: str, s: str, x: int, y: int, c: int = 1, encoding: str='latin1'):
+    def text(self, name: str, s: str, x: int, y: int, c: int = 1, encoding: str = 'latin1'):
         self._matrix[name].text(s.encode(encoding), x, y, c)
 
+    def __call__(self, name: str):
+        self._matrix[name]()
+
+    def __iter__(self):
+        return self._matrix.keys().__iter__()
 
     class _Max7219(framebuf.FrameBuffer):
         # https://howtomechatronics.com/tutorials/arduino/8x8-led-matrix-max7219-tutorial-scrolling-text-android-control-via-bluetooth/

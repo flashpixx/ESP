@@ -2,9 +2,9 @@
 system model for generic structures
 '''
 
-import network
 import esp
 import machine
+import network
 
 
 def wifi_accesspoint(ssid: str, password: str, channel: int = None, hidden: bool = False):
@@ -53,6 +53,7 @@ def wifi_connect(ssid: str, password: str, hostname: str = None):
         machine.idle()
 
     print('Wifi Config: IP %s - Netmask %s - Router %s - DNS %s' % net.ifconfig())
+
 
 def debugoff():
     '''

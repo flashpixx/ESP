@@ -1,41 +1,41 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <title>ESP</title>
+    <meta charset="utf-8">
+    <title>ESP</title>
 
-    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link href="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="container-fluid mt-3">
+<div class="container-fluid mt-3">
 
-       <h4>LED</h4>
-       <div class="row">
-           <div class="mr-2"><a href="#" id="led_random">Random</a></div>
-           <div class="mr-2">
-                <label class="checkbox-inline"><input type="checkbox" value="white" class="led_toggle" id="led_white">White</label>
-                <label class="checkbox-inline"><input type="checkbox" value="blue" class="led_toggle" id="led_blue">Blue</label>
-                <label class="checkbox-inline"><input type="checkbox" value="yellow" class="led_toggle" id="led_yellow">Yellow</label>
-          </div>
-       </div>
-
-
-       <h4 class="mt-3">Dot-Matrix</h4>
-       <div class="row">
-            <textarea class="form-control" rows="3" id="matrixtext"></textarea>
-            <a href="#" id="matrixsend">Send</a> &mdash;<a href="#" id="matrixreset">Reset</a> &mdash;
-            <label for="matrixbrightness">Brightness:</label><input type="range" id="matrixbrightness" max="15" min="0", step="1" value="0">
-       </div>
-
+    <h4>LED</h4>
+    <div class="row">
+        <div class="mr-2"><a href="#" id="led_random">Random</a></div>
+        <div class="mr-2">
+            <label class="checkbox-inline"><input class="led_toggle" id="led_white" type="checkbox" value="white">White</label>
+            <label class="checkbox-inline"><input class="led_toggle" id="led_blue" type="checkbox" value="blue">Blue</label>
+            <label class="checkbox-inline"><input class="led_toggle" id="led_yellow" type="checkbox" value="yellow">Yellow</label>
+        </div>
     </div>
 
 
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <script>
+    <h4 class="mt-3">Dot-Matrix</h4>
+    <div class="row">
+        <textarea class="form-control" id="matrixtext" rows="3"></textarea>
+        <a href="#" id="matrixsend">Send</a> &mdash;<a href="#" id="matrixreset">Reset</a> &mdash;
+        <label for="matrixbrightness">Brightness:</label><input , id="matrixbrightness" max="15" min="0" step="1" type="range" value="0">
+    </div>
+
+</div>
+
+
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script>
         jQuery(function() {
             jQuery.ajax({ url: "/info" })
                   .done(function(i) {
@@ -72,6 +72,7 @@
         jQuery("#matrixbrightness").change(function() {
             jQuery.ajax({ url: "matrix/brightness/" + jQuery(this).val() });
         });
-    </script>
+
+</script>
 </body>
 </html>
