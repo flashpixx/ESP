@@ -40,28 +40,28 @@ class DotMatrix:
         self._matrix[name.replace(' ', '')] = self._Max7219(width, height, cs, din, clk, rotate_180, spiid, baudrate, polarity, phase)
 
     def fill(self, name: str, c: int):
-        pass
+        self._matrix[name].fill(c)
 
     def pixel(self, name: str, x: int, y: int, c: int):
-        pass
+        self._matrix[name].pixel(x, y, c)
 
     def hline(self, name: str, x: int, y: int, w: int, c: int):
-        pass
+        self._matrix[name].hline(x, y, w, c)
 
     def vline(self, name: str, x: int, y: int, h: int, c: int):
-        pass
+        self._matrix[name].vline(x, y, h, c)
 
     def line(self, name: str, x1: int, y1: int, x2: int, y2: int, c: int):
-        pass
+        self._matrix[name].line(x1, y1, x2, y2, c)
 
     def rect(self, name: str, x: int, y: int, w: int, h: int, c: int):
         pass
 
     def fill_rect(self, name: str, x: int, y: int, w: int, h: int, c: int):
-        pass
+        self._matrix[name].fill(x, y, w, h, c)
 
-    def text(self, name: str, s: str, x: int, y: int, c: int = 1):
-        pass
+    def text(self, name: str, s: str, x: int, y: int, c: int = 1, encoding: str='latin1'):
+        self._matrix[name].text(s.encode(encoding), x, y, c)
 
 
     class _Max7219(framebuf.FrameBuffer):
